@@ -1,44 +1,94 @@
+// ----------------
+// --- 31217846 ---
+// ----------------
+
 package de.loop.mh.webengineering.logic;
 
-import org.springframework.stereotype.Service;
-
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
 
-@Service
-public class Post
-{
+public class Post {
+
+    // ---------------
+    // ---- static ---
+    // ---------------
+
+    private static int globalIDCounter = 1;
+
+    public static Post create(String newTitle)
+    {
+        if(newTitle.length() < 1)
+            return null;
+
+        Post p = new Post(newTitle);
+
+        p.setID(Post.globalIDCounter++);
+
+        return p;
+    }
+
+
     // --------------------
     // --- private vars ---
     // --------------------
 
-    LinkedList<String> posts = new LinkedList<String>();
+    private int id_ = 0;
+    private String title_;
+    private Date timeStamp_;
+
+
+    // -------------------------
+    // --- Getter and Setter ---
+    // -------------------------
+
+    public void setID(int newID)
+    {
+        this.id_ = newID;
+    }
+
+    public int getID()
+    {
+        return this.id_;
+    }
+
+    public void setTitle(String newTitle)
+    {
+        this.title_ = newTitle;
+    }
+
+    public String getTitle()
+    {
+        return this.title_;
+    }
+
+    public void setTimeStamp(Date newDate)
+    {
+        this.timeStamp_ = newDate;
+    }
+
+    public Date getTimeStamp()
+    {
+        return this.timeStamp_;
+    }
+
+
+    // -------------------
+    // --- Constructor ---
+    // -------------------
+
+    private Post(String title)
+    {
+        this.setTitle(title);
+        this.setTimeStamp(new Date());
+    }
 
 
     // ---------------
     // --- Methods ---
     // ---------------
 
-    /**
-     * Returns a list containing all posts
-     *
-     * @return post list
-     */
-    public List<String> getPosts()
+    @Override
+    public String toString()
     {
-        return this.posts;
-        //new Date().toString();
-    }
-
-
-    /**
-     * Add a new post
-     *
-     * @param title the new post's title
-     */
-    public void addPost(String title)
-    {
-        this.posts.add(title);
+        return "Post(" + this.getID() + ", " + this.getTitle() + ", " + this.timeStamp_.toString() + ")";
     }
 }
