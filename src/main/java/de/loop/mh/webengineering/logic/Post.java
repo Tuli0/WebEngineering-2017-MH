@@ -4,34 +4,22 @@
 
 package de.loop.mh.webengineering.logic;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 import java.util.Date;
 
+@Entity
 public class Post {
-
-    // ---------------
-    // ---- static ---
-    // ---------------
-
-    private static int globalIDCounter = 1;
-
-    public static Post create(String newTitle)
-    {
-        if(newTitle.length() < 1)
-            return null;
-
-        Post p = new Post(newTitle);
-
-        p.setID(Post.globalIDCounter++);
-
-        return p;
-    }
-
 
     // --------------------
     // --- private vars ---
     // --------------------
 
-    private int id_ = 0;
+    @Id
+    @GeneratedValue
+    private long id_ = 0;
     private String title_;
     private Date timeStamp_;
 
@@ -40,12 +28,12 @@ public class Post {
     // --- Getter and Setter ---
     // -------------------------
 
-    public void setID(int newID)
+    public void setID(long newID)
     {
         this.id_ = newID;
     }
 
-    public int getID()
+    public long getID()
     {
         return this.id_;
     }
@@ -75,9 +63,8 @@ public class Post {
     // --- Constructor ---
     // -------------------
 
-    private Post(String title)
+    public Post()
     {
-        this.setTitle(title);
         this.setTimeStamp(new Date());
     }
 
@@ -86,9 +73,11 @@ public class Post {
     // --- Methods ---
     // ---------------
 
+    /*
     @Override
     public String toString()
     {
         return "Post(" + this.getID() + ", " + this.getTitle() + ", " + this.timeStamp_.toString() + ")";
     }
+    */
 }

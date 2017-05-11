@@ -8,11 +8,7 @@ import de.loop.mh.webengineering.logic.PostService;
 import de.loop.mh.webengineering.logic.Post;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,31 +27,28 @@ public class PostController {
     // --- methods ---
     // ---------------
 
-    @RequestMapping("/post")
-    public List<String> post()
+    @RequestMapping(value = "/post", method = RequestMethod.GET)
+    public List<Post> post()
     {
-        return post.getPostsAsStrings();
+        return post.getPosts();
     }
 
-    @RequestMapping("/post/{id}")
-    public String post(@PathVariable("id") int id)
+    @RequestMapping(value = "/post/{id}", method = RequestMethod.GET)
+    public Post post(@PathVariable("id") int id)
     {
         Post p = post.getPostById(id);
 
-        if(p == null)
-            return "";
-        else
-            return p.toString();
+        return p;
     }
 
-    @RequestMapping(value = "/post/add", method=RequestMethod.GET)
-    public void addPost(@RequestParam("title") String title)
+    @RequestMapping(value = "/post", method=RequestMethod.POST)
+    public void addPost(@RequestBody Post newPost)
     {
-        post.addPost(title);
+        post.add(newPost);
     }
 
-    @RequestMapping(value = "/post/delete", method=RequestMethod.GET)
-    public void addPost(@RequestParam("id") int id)
+    @RequestMapping(value = "/post/{id}", method=RequestMethod.DELETE)
+    public void addPost(@PathVariable("id") int id)
     {
         post.deletePost(id);
     }

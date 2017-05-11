@@ -76,11 +76,11 @@ public class PostService
     /**
      * Add a new post
      *
-     * @param title the new post's title
+     * @param newPost the new post
      */
-    public void addPost(String title)
+    public void add(Post newPost)
     {
-        this.posts.add(Post.create(title));
+        this.posts.add(newPost);
     }
 
     /**
