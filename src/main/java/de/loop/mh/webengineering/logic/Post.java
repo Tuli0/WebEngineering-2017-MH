@@ -4,9 +4,7 @@
 
 package de.loop.mh.webengineering.logic;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import java.util.Date;
 
@@ -19,8 +17,12 @@ public class Post {
 
     @Id
     @GeneratedValue
-    private long id_ = 0;
+    private long id_;
+
+    @Column(nullable = false, name="title")
     private String title_;
+
+    @Column(nullable = false, name="createdAt")
     private Date timeStamp_;
 
 
