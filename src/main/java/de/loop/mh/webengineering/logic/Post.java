@@ -4,6 +4,8 @@
 
 package de.loop.mh.webengineering.logic;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 import java.util.Date;
@@ -17,14 +19,17 @@ public class Post {
 
     @Id
     @GeneratedValue
+    @JsonIgnore
     private long id_;
 
-    @Column(nullable = false, name="title")
+    @ManyToOne(optional = false)
+    private User creator_;
+
+    @Column(nullable = false, name="title_")
     private String title_;
 
-    @Column(nullable = false, name="createdAt")
+    @Column(nullable = false, name="createdAt_")
     private Date timeStamp_;
-
 
     // -------------------------
     // --- Getter and Setter ---
@@ -60,6 +65,13 @@ public class Post {
         return this.timeStamp_;
     }
 
+    public void setCreator(User newCreator) {
+        this.creator_ = newCreator;
+    }
+
+    public User getCreator() {
+        return this.creator_;
+    }
 
     // -------------------
     // --- Constructor ---
